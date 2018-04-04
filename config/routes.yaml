@@ -1,0 +1,26 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+home:
+    path: /
+    controller: App\Controller\MainController::home
+
+events:
+    path: /events
+    controller: App\Controller\EventController::list
+
+event:
+    path: /event/{id}
+    controller: App\Controller\EventController::show
+    requirements:
+        id: \d+
+
+event_add:
+    path: /event/add
+    controller: App\Controller\EventController::add
+
+event_join:
+    path: /event/join
+    controller: App\Controller\EventController::join
+    requirements:
+        id: \d+
