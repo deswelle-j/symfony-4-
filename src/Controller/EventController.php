@@ -5,44 +5,20 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use App\Service\EventService;
 
 class EventController extends Controller
 {
-    private $events;
-    public function __construct(){
-        $this->events = array(
-            array(
-                'id' => '0',
-                'title'   => 'Black cat event',
-                'content' => 'Loremp ipsum ........',
-                'startAt' => new \DateTime('2018-03-12 5:08am'),
-                'shouldEndAt' => new \DateTime('2018-03-12 6:30am'),
-                'place' => '44 rue scrive 59110 La Madeleine',
-            ),
-            array(
-                'id' => '1',
-                'title'   => 'Still alive yet',
-                'content' => 'Lolorem ipsoum .....',
-                'startAt' => new \DateTime('2018-05-21 8:30am'),
-                'shouldEndAt' => new \DateTime('2018-05-21 9:30am'),
-                'place' => '34 de la corniche',
-            ),
-        );
-    }
     
-    public function List(){
+    public function list( EventService $eventService ){
         return $this->render('event/list.html.twig', array(
-        'events' => $this->events));
+        'events' => $eventService->events()));
     }
 
-    public function show($id){
-        foreach( $this->events as $event ){
-            if( $event['id'] == $id){
+    public function show( EventService $eventService ,$id){
                 return $this->render('event/show.html.twig', array(
-                    'event' => $event));
-            }
-        }
-        return new Response ('Erreur Not Found', 404);
+                    'event' => $eventService->event($id)));
+
     }
 
     public function add(){
