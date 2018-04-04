@@ -8,8 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EventController extends Controller
 {
+    private $events;
     public function __construct(){
-        return $events = array(
+        $this->events = array(
             array(
                 'id' => '0',
                 'title'   => 'Black cat event',
@@ -31,14 +32,17 @@ class EventController extends Controller
     
     public function List(){
         return $this->render('event/list.html.twig', array(
-        'events' => $this->__construct()));
+        'events' => $this->events));
     }
 
     public function show($id){
-        $title = 'Nom de l\'evenement';
-        $content = 'Description de l\'evenement en question';
-        return $this->render('event/show.html.twig', array(
-            'event' => $this->__construct()[$id]));
+        foreach( $this->events as $event ){
+            if( $event['id'] == $id){
+                return $this->render('event/show.html.twig', array(
+                    'event' => $event));
+            }
+        }
+        return new Response ('Erreur Not Found', 404);
     }
 
     public function add(){
