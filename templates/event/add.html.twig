@@ -12,8 +12,7 @@
     <h1>Evenement : {{ event.title }}</h1>
 
     <p>{{ event.content }}</p>
-    <p>L'évenement débutera {{ event.startAt|date('d/m/Y H:i') }} et se terminera {{ event.shouldEndAt|date('d/m/Y H:i') }}</p>
-    <p>Adresse du lieu: {{ event.place }}</p>
+
     <a href="{{ path('events') }}">Liste des evenements</a> 
 
 </div>

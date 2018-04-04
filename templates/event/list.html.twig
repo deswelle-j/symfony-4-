@@ -14,8 +14,20 @@
     {% for event in events %}
         <li>
             <h4>Titre de l'évenements:</h4>
-            <a href="{{ path('event', {'id': loop.index}) }}">{{ event.title }}</a>   
+            <a href="{{ path('event', {'id': event.id}) }}">{{ event.title }}</a>   
             <p>Description de l'évenements {{ event.content }}</p>
+            <p>{{ event.startAt|date('d/m/Y H:i') }}</p>
+            <p>{{ event.shouldEndAt|date('d/m/Y H:i') }}</p>
+            <p><strong>
+            {% if event.shouldEndAt < date() %}
+                To Late
+            {% elseif event.startAt < date() and event.shouldEndAt >date() %}
+                En cours ...
+            {% else %}
+                A venir
+            {% endif %}
+            </strong></p>
+
         </li>
     {% endfor %}
     </ul>
