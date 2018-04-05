@@ -14,8 +14,8 @@
     {% for event in events %}
         <li>
             <h4>Titre de l'évenements:</h4>
-            <a href="{{ path('event', {'id': event.id}) }}">{{ event.title }}</a>   
-            <p>Description de l'évenements {{ event.content }}</p>
+            <a href="{{ path('event', {'id': event.id}) }}">{{ event.name }}</a>   
+            <p>Description de l'évenements {{ event.description }}</p>
             <p>{{ event.startAt|date('d/m/Y H:i') }}</p>
             <p>{{ event.shouldEndAt|date('d/m/Y H:i') }}</p>
             <p><strong>

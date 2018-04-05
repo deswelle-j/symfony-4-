@@ -16,8 +16,11 @@ class EventController extends Controller
     }
 
     public function show( EventService $eventService ,$id){
-                return $this->render('event/show.html.twig', array(
-                    'event' => $eventService->event($id)));
+        if($eventService->event($id) === false){
+            return new Response ('Erreur Not Found', 404);
+        }
+        return $this->render('event/show.html.twig', array(
+            'event' => $eventService->event($id)));
 
     }
 

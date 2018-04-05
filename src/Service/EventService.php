@@ -2,10 +2,14 @@
 
 namespace App\Service;
 
+use Doctrine\Common\Persistence\ObjectManager;
+
 class EventService{
+    private $events;
+    private $om;
 
-
-    public function __construct(){
+    public function __construct( ObjectManager $om ){
+        $this->om = $om;
         $this->events = array(
             array(
                 'id' => '0',
@@ -26,17 +30,25 @@ class EventService{
         );
     }
 
-    public function events(){
-        return $this->events;
+    public function events( ){
+        $eventRepository = $this->om->getRepository( 'App:Event' );
+        return $eventRepository->findAll();
     }
 
     public function event($id){
-        foreach( $this->events as $event ){
-            if( $event['id'] == $id){
-                return $event;
-            }
-        }
-        return new Response ('Erreur Not Found', 404);
+        $eventRepository = $this->om->getRepository( 'App:Event' );
+        return $eventRepository->findOneBy( array( 'id' => $id));
+        // foreach( $this->events as $event ){
+        //     if( $event['id'] == $id){
+        //         return $event;
+        //     }
+        // }
+        // return false;
+    }
+
+    public function getEventByName( $name ){
+        $eventRepository = $this->om->getRepository( 'App:Event' );
+        return $eventRepository->findBy( array( 'name' => $name));
     }
 
 }
