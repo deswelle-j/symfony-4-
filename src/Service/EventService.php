@@ -35,9 +35,9 @@ class EventService{
         return $eventRepository->findAll();
     }
 
-    public function event($id){
+    public function event( $id ){
         $eventRepository = $this->om->getRepository( 'App:Event' );
-        return $eventRepository->findOneBy( array( 'id' => $id));
+        return $eventRepository->findOneBy( array( 'id' => $id ));
         // foreach( $this->events as $event ){
         //     if( $event['id'] == $id){
         //         return $event;
