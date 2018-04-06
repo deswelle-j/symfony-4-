@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}evenement {{ event.title }}{% endblock %}
+{% block title %}evenement {% endblock %}
 
 {% block body %}
 <style>
@@ -9,11 +9,10 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Evenement : {{ event.title }}</h1>
-
-    <p>{{ event.content }}</p>
-
-    <a href="{{ path('events') }}">Liste des evenements</a> 
+    {{form_start( form) }} 
+    {{ form_widget ( form ) }}
+    <button type="submit">Ajouter</button>
+    {{ form_end( form ) }}
 
 </div>
 {% endblock %}

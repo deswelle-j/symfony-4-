@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\EventService;
+use App\Entity\Event;
+use App\Form\AddEventType;
+
 
 class EventController extends Controller
 {
@@ -36,8 +39,17 @@ class EventController extends Controller
 
     }
 
-    public function add(){
-        return new Response(' Add event');
+    public function add( Request $request){
+        $event = new Event();
+        $form = $this->createForm( AddEventType::class, $event );
+        $form->handleRequest( $request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist( $event );
+            $em->flush();
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('event/add.html.twig', array( 'form' => $form->createView() ));
     }
 
     public function join(){

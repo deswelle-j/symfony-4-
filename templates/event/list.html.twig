@@ -11,13 +11,13 @@
 <div class="example-wrapper">
     <form method="GET">
         <input type="text" name="search" placeholder="Recherche">
-        <input type="submit" placeholder="Recherche">
+        <input type="submit" value="Recherche">
     </form>
-    
+
     <h1>Liste des évenements</h1>
     <p>Il y a {{ counter }} </p>
     <a href="?sort=name">Par nom</a>
-    <a href="?=name">Par date</a>
+    <a href="?=date">Par date</a>
     {% if param is defined %}
         {{ dump(param) }}
     {% endif %}
@@ -41,5 +41,6 @@
         </li>
     {% endfor %}
     </ul>
+    <a href="{{ path('event_add') }}">add event</a>
 </div>
 {% endblock %}
