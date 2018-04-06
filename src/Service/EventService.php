@@ -3,52 +3,43 @@
 namespace App\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use App\Repository\EventRepository;
 
 class EventService{
-    private $events;
     private $om;
+    private $eventRepository;
 
-    public function __construct( ObjectManager $om ){
+    public function __construct( ObjectManager $om){
         $this->om = $om;
-        $this->events = array(
-            array(
-                'id' => '0',
-                'title'   => 'Black cat event',
-                'content' => 'Loremp ipsum ........',
-                'startAt' => new \DateTime('2018-03-12 5:08am'),
-                'shouldEndAt' => new \DateTime('2018-03-12 6:30am'),
-                'place' => '44 rue scrive 59110 La Madeleine',
-            ),
-            array(
-                'id' => '1',
-                'title'   => 'Still alive yet',
-                'content' => 'Lolorem ipsoum .....',
-                'startAt' => new \DateTime('2018-05-21 8:30am'),
-                'shouldEndAt' => new \DateTime('2018-05-21 9:30am'),
-                'place' => '34 de la corniche',
-            ),
-        );
+        $this->eventRepository =  $this->om->getRepository( 'App:Event' );
+
     }
 
-    public function events( ){
-        $eventRepository = $this->om->getRepository( 'App:Event' );
-        return $eventRepository->findAll();
+    public function events( $sort = null ){
+        // $eventRepository = $this->om->getRepository( 'App:Event' );
+        if( $sort == 'name'){
+            return $this->eventRepository->findBy( array( ), array('name' => 'ASC'));
+        }elseif( $sort == 'date'){
+            return $this->eventRepository->findBy( array(), array('date' => 'ASC'));
+        }
+        return $this->eventRepository->findAll();
     }
 
     public function event( $id ){
-        $eventRepository = $this->om->getRepository( 'App:Event' );
-        return $eventRepository->findOneBy( array( 'id' => $id ));
-        // foreach( $this->events as $event ){
-        //     if( $event['id'] == $id){
-        //         return $event;
-        //     }
-        // }
-        // return false;
+        // $eventRepository = $this->om->getRepository( 'App:Event' );
+        return $this->eventRepository->findOneBy( array( 'id' => $id ));
     }
 
     public function getEventByName( $name ){
-        $eventRepository = $this->om->getRepository( 'App:Event' );
-        return $eventRepository->findBy( array( 'name' => $name));
+        // $eventRepository = $this->om->getRepository( 'App:Event' );
+        return $this->eventRepository->findBy( array( 'name' => $name));
+    }
+    public function countPendding(){
+        return $this->eventRepository->countPendding();
+    }
+
+    public function search( $term ){
+        return $this->eventRepository->search( $term );
     }
 
 }

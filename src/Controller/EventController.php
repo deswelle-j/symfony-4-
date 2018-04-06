@@ -5,17 +5,29 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use App\Service\EventService;
 
 class EventController extends Controller
 {
-    
-    public function list( EventService $eventService ){
+
+    public function list( EventService $eventService, Request $request){
+        $sort = $request->query->get('sort');
+        $search = $request->query->get('search');
+
+        if(empty( $search )){
+            $items = $eventService->events( $sort );
+        }else{
+            $items = $eventService->search( $search );
+        }
+
         return $this->render('event/list.html.twig', array(
-        'events' => $eventService->events()));
+        'events' =>$items,
+        'counter' => $eventService->countPendding()
+    ));
     }
 
-    public function show( EventService $eventService ,$id){
+    public function show( EventService $eventService ,$id ){
         if($eventService->event($id) === false){
             return new Response ('Erreur Not Found', 404);
         }

@@ -47,21 +47,37 @@ class EventRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function search( $term ){
+        $stmt = $this->createQueryBuilder('e');
+        $stmt->where('e.name LIKE :term');
+        $stmt->setParameter('term','%' . $term . '%');
+        return $stmt->getQuery()->getResult();
+    }
+
+    public function countPendding(){
+        $stmt = $this->createQueryBuilder('e');
+        $stmt->select('count(e)');
+        $stmt->where('e.startAt > :now');
+        $stmt->setParameter('now', new \Datetime);
+        return $stmt->getQuery()->getSingleScalarResult();
+    }
+
+    public function getevents( $filter ){
+        $stmt = $this->createQueryBuilder('e');
+        $stmt->orderBy('e.name', $filter);
+        return $stmt->getQuery()
+        ->getResult();
+    }
+
+
     public function getEventByName($name)
     {
         $stmt = $this->createQueryBuilder('e');
         $stmt->andWhere('e.name LIKE :val');
         $stmt->setParameter('val', $name);
         $stmt->orderBy('e.name', 'ASC');
-
         return $stmt->getQuery()
         ->getResult();
         
-    }
-
-    public function getNbEvent()
-    {
-        $stmt = select('count(e)');
-        return $stmt->getQuery()->getSingleScalarResult();
     }
 }

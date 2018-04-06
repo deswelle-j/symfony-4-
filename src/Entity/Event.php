@@ -48,6 +48,12 @@ class Event
      */
     private $options;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $place;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -162,6 +168,18 @@ class Event
         if ($this->options->contains($option)) {
             $this->options->removeElement($option);
         }
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?Place $place): self
+    {
+        $this->place = $place;
 
         return $this;
     }
