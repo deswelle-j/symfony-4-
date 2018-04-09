@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Service\EventService;
 use App\Entity\Event;
 use App\Form\AddEventType;
+use App\Form\AddParticipantType;
+use App\Entity\Participant;
 
 
 class EventController extends Controller
@@ -47,12 +49,23 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist( $event );
             $em->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('events');
         }
-        return $this->render('event/add.html.twig', array( 'form' => $form->createView() ));
+        return $this->render('event/addEvent.html.twig', array( 'form' => $form->createView() ));
     }
 
-    public function join(){
-        return new Response(' Join event');
+    public function join( EventService $eventService ,Request $request, $id ){
+        $participant = new Participant();
+        $event = $eventService->event($id);
+        $participant->setEvent($event);
+        $form = $this->createForm( AddParticipantType::class, $participant );
+        $form->handleRequest( $request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist( $participant );
+            $em->flush();
+            return $this->redirectToRoute('events');
+        }
+        return $this->render('event/addParticipant.html.twig', array( 'form' => $form->createView() ));
     }
 }

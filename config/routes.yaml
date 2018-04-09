@@ -20,7 +20,7 @@ event_add:
     controller: App\Controller\EventController::add
 
 event_join:
-    path: /event/join
+    path: /event/{id}/join
     controller: App\Controller\EventController::join
     requirements:
         id: \d+

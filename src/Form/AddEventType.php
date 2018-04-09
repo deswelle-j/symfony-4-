@@ -20,8 +20,8 @@ class AddEventType extends AbstractType
             ->add('startAt', DateTimeType::class, array('label' => 'startAt'))
             ->add('shouldEndAt', DateTimeType::class, array('label' => 'shouldEndAt'))
             ->add('description', TextareaType::class, array('label' => 'description'))
-            ->add('options', null, array('choice_label' => 'name'))
-            ->add('place', null, array('choice_label' => 'name'))
+            ->add('options', null, array('choice_label' => 'options'))
+            ->add('place', null, array('choice_label' => 'place'))
         ;
     }
 
