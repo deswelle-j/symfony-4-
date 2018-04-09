@@ -15,7 +15,7 @@
     </form>
 
     <h1>Liste des évenements</h1>
-    <p>Il y a {{ counter }} </p>
+    <p>Il y a {{ counter }} évenements à venir</p>
     <a href="?sort=name">Par nom</a>
     <a href="?=date">Par date</a>
     {% if param is defined %}
@@ -38,6 +38,7 @@
                 A venir
             {% endif %}
             </strong></p>
+            <a href="{{ path('event_join', {'id': event.id}) }}">Ajouter un participant</a>
         </li>
     {% endfor %}
     </ul>

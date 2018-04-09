@@ -49,7 +49,12 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist( $event );
             $em->flush();
-            return $this->redirectToRoute('events');
+
+            $this->addFlash('notice', 'Votre évenement à bien été ajouté');
+
+            return $this->redirectToRoute('event', array(
+                'id' => $event->getId(),
+            ));
         }
         return $this->render('event/addEvent.html.twig', array( 'form' => $form->createView() ));
     }
@@ -64,7 +69,12 @@ class EventController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist( $participant );
             $em->flush();
-            return $this->redirectToRoute('events');
+
+            $this->addFlash('notice', 'Votre participant à bien été ajouté');
+
+            return $this->redirectToRoute('event', array(
+                'id' => $event->getId(),
+            ));
         }
         return $this->render('event/addParticipant.html.twig', array( 'form' => $form->createView() ));
     }

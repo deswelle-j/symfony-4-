@@ -16,12 +16,12 @@ class AddEventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, array('label' => 'name'))
-            ->add('startAt', DateTimeType::class, array('label' => 'startAt'))
-            ->add('shouldEndAt', DateTimeType::class, array('label' => 'shouldEndAt'))
-            ->add('description', TextareaType::class, array('label' => 'description'))
-            ->add('options', null, array('choice_label' => 'options'))
-            ->add('place', null, array('choice_label' => 'place'))
+            ->add('name', TextType::class, array('label' => 'Nom de l\'évenement:', 'attr' => array('placeholder' =>'Nom',)))
+            ->add('startAt', DateTimeType::class, array('label' => 'Début de l\'évenement :', 'widget' => 'single_text',))
+            ->add('shouldEndAt', DateTimeType::class, array('label' => 'Fin de l\'évenement :', 'widget' => 'single_text',))
+            ->add('description', TextareaType::class, array('label' => 'description de l\'évènement:'))
+            ->add('options', null, array('choice_label' => 'name', 'expanded' => true))
+            ->add('place', null, array('choice_label' => 'name', 'expanded' => true))
         ;
     }
 

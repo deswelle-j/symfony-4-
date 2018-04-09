@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,16 +20,25 @@ class Event
     private $id;
 
     /**
+     * @Assert\Length(
+     *  min = 3,
+     * minMessage = "Votre nom doit au minimum contenir {{ Limit}} caratères",
+     * )
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan("today")
      * @ORM\Column(type="datetime")
      */
     private $startAt;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\GreaterThan(propertyPath="startAt")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $shouldEndAt;
@@ -51,6 +61,7 @@ class Event
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Place")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $place;
 
@@ -84,7 +95,7 @@ class Event
         return $this->startAt;
     }
 
-    public function setStartAt(\DateTimeInterface $startAt): self
+    public function setStartAt(\DateTimeInterface $startAt = null ): self
     {
         $this->startAt = $startAt;
 
@@ -96,7 +107,7 @@ class Event
         return $this->shouldEndAt;
     }
 
-    public function setShouldEndAt(\DateTimeInterface $shouldEndAt): self
+    public function setShouldEndAt(\DateTimeInterface $shouldEndAt = null): self
     {
         $this->shouldEndAt = $shouldEndAt;
 
