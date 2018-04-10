@@ -13,6 +13,18 @@
                 </div>
             {% endfor %}
         {% endfor %}
+        {% block sidebar %}
+        <ul>
+            {% if app.user is not empty %}
+            <li><a href="{{ path('logout') }}">Logout</a></li>
+            <li><a href="{{ path('event_add') }}">add event</a></li>
+            {% else %}
+            <li><a href="{{ path('login') }}">Login</a></li>
+            <li><a href="{{ path('subscribe') }}">Inscription</a></li>
+            {% endif %}
+
+        </ul>
+    {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

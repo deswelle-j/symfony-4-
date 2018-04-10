@@ -17,9 +17,7 @@
     <h1>Liste des évenements</h1>
 
     <p>Il y a {{ counter }} évenements à venir</p>
-    <a href="{{ path('login') }}">Login</a>
-    <a href="{{ path('logout') }}">Logout</a>
-    <a href="{{ path('subscribe') }}">Inscription</a>
+
     <a href="?sort=name">Par nom</a>
     <a href="?=date">Par date</a>
     {% if param is defined %}
@@ -46,6 +44,5 @@
         </li>
     {% endfor %}
     </ul>
-    <a href="{{ path('event_add') }}">add event</a>
 </div>
 {% endblock %}
