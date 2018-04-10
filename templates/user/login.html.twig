@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+{% if error %}
+    <p>Erreur lors de la connexion</p>
+{% endif %}
+
+<form action="{{ path('login') }}" method="post">
+    <input type="text" placeholder="Nom de l'utilisateur"
+    name="_username" value="{{ lastUsername }}">
+
+    <input type="password" placeholder="Mot de passe"
+    name="_password">
+
+    <button type="submit">Login</button>
+</form>
+{% endblock %}

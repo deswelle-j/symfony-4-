@@ -24,3 +24,7 @@ event_join:
     controller: App\Controller\EventController::join
     requirements:
         id: \d+
+
+login:
+    path: /login
+    controller: App\Controller\UserController::login

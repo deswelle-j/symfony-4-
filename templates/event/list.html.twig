@@ -15,7 +15,9 @@
     </form>
 
     <h1>Liste des évenements</h1>
+
     <p>Il y a {{ counter }} évenements à venir</p>
+    <a href="{{ path('login') }}">add event</a>
     <a href="?sort=name">Par nom</a>
     <a href="?=date">Par date</a>
     {% if param is defined %}
