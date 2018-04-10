@@ -5,6 +5,7 @@
 {% block body %}
 {% if error %}
     <p>Erreur lors de la connexion</p>
+    {{ dump(error) }}
 {% endif %}
 
 <form action="{{ path('login') }}" method="post">
@@ -16,4 +17,5 @@
 
     <button type="submit">Login</button>
 </form>
+<a href="{{ path('events') }}">Liste des evenements</a>
 {% endblock %}

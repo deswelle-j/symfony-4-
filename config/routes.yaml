@@ -28,3 +28,11 @@ event_join:
 login:
     path: /login
     controller: App\Controller\UserController::login
+
+logout:
+    path: /logout
+
+subscribe:
+    path: /subscribe
+    controller: App\Controller\UserController::subscribe
+

@@ -32,6 +32,8 @@ class User implements UserInterface
      */
     private $roles;
 
+    private $plainPassword;
+
 
     public function getId()
     {
@@ -75,9 +77,21 @@ class User implements UserInterface
     }
 
     public function eraseCredentials(){
-
+        $this->plainPassword = null;
     }
     public function getSalt(): ?string{
         return null;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 }
