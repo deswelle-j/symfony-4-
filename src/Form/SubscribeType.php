@@ -17,8 +17,9 @@ class SubscribeType extends AbstractType
             ->add('username')
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repeat Password'),
+                'invalid_message' => 'Les mots de passes ne sont pas identiques',
+                'first_options'  => array('label' => 'Mot de passe'),
+                'second_options' => array('label' => 'Confirmer le mot de passe'),
             ))
             // ->add('roles')
         ;

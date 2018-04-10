@@ -23,7 +23,7 @@ security:
                 check_path: login
             logout:
                 path: /logout
-                target: /
+                target: /events
     access_control:
         - { path: ^/event/add, roles: ROLE_ADMIN }
         
