@@ -59,7 +59,10 @@
             </tr>
         </tfoot>
     </table>
-
+    {{form_start( formoption) }} 
+    {{ form_widget ( formoption ) }}
+    <button type="submit">Ajouter</button>
+    {{ form_end( formoption ) }}
     <h3>Lites des types de lieu</h3>
 
     <table >
@@ -83,6 +86,10 @@
                 </tr>
             </tfoot>
         </table>
+        {{form_start( formtype) }} 
+        {{ form_widget ( formtype ) }}
+        <button type="submit">Ajouter</button>
+        {{ form_end( formtype ) }}
 
 </div>
 {% endblock %}

@@ -13,7 +13,7 @@ class AddOptionType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('events')
+            // ->add('events')
         ;
     }
 
