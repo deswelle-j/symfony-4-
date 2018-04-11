@@ -95,7 +95,7 @@ public function review(Request $request, Event $event ){
         'event' => $event,
     ));
 
-    $review->$setReviewer($participant);
+    $review->setReviewer($participant);
     $review->setEvent($event);
     
     // $participant->setName($this->getUSer()->getUserName());
