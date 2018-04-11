@@ -62,7 +62,9 @@ class EventController extends Controller
     public function join( EventService $eventService ,Request $request, $id ){
         $participant = new Participant();
         $event = $eventService->event($id);
+
         $participant->setEvent($event);
+        $participant->setName($this->getUSer()->getUserName());
         $form = $this->createForm( AddParticipantType::class, $participant );
         $form->handleRequest( $request);
         if ($form->isSubmitted() && $form->isValid()){

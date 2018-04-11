@@ -3,7 +3,7 @@ security:
     encoders:
         App\Entity\User: bcrypt
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+        ROLE_ADMIN: ROLE_USER 
         ROLE_SUPER_ADMIN: ROLE_ADMIN
     
     providers:
@@ -25,8 +25,8 @@ security:
                 path: /logout
                 target: /events
     access_control:
-        - { path: ^/event/add, roles: ROLE_ADMIN }
-        
+        - { path: ^/event/[0-9]+/join, roles: ROLE_USER }
+        - { path: ^/administration, roles: ROLE_ADMIN }
             
 
             # activate different ways to authenticate

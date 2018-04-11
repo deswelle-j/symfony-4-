@@ -36,3 +36,6 @@ subscribe:
     path: /subscribe
     controller: App\Controller\UserController::subscribe
 
+administration:
+    path: /administration
+    controller: App\Controller\AdministrationController::administration
