@@ -25,6 +25,12 @@ event_join:
     requirements:
         id: \d+
 
+event_review:
+    path: /event/{id}/review
+    controller: App\Controller\EventController::review
+    requirements:
+        id: \d+
+
 login:
     path: /login
     controller: App\Controller\UserController::login

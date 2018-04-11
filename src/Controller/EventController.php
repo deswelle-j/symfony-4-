@@ -10,7 +10,10 @@ use App\Service\EventService;
 use App\Entity\Event;
 use App\Form\AddEventType;
 use App\Form\AddParticipantType;
+use App\Form\ReviewType;
 use App\Entity\Participant;
+use App\Entity\Review;
+
 
 
 class EventController extends Controller
@@ -64,7 +67,9 @@ class EventController extends Controller
         $event = $eventService->event($id);
 
         $participant->setEvent($event);
+        $participant->setUser( $this->getUser());
         $participant->setName($this->getUSer()->getUserName());
+
         $form = $this->createForm( AddParticipantType::class, $participant );
         $form->handleRequest( $request);
         if ($form->isSubmitted() && $form->isValid()){
@@ -80,4 +85,33 @@ class EventController extends Controller
         }
         return $this->render('event/addParticipant.html.twig', array( 'form' => $form->createView() ));
     }
+
+
+public function review(Request $request, Event $event ){
+    $review = new Review();
+    $participantRepository = $this->getDoctrine()->getRepository('App:Participant');
+    $participant = $participantRepository->findOneBy( array(
+        'user' => $this->getUser(),
+        'event' => $event,
+    ));
+
+    $review->$setReviewer($participant);
+    $review->setEvent($event);
+    
+    // $participant->setName($this->getUSer()->getUserName());
+    $form = $this->createForm( ReviewType::class, $review );
+    $form->handleRequest( $request);
+    if ($form->isSubmitted() && $form->isValid()){
+        $em = $this->getDoctrine()->getManager();
+        $em->persist( $review );
+        $em->flush();
+
+        $this->addFlash('notice', 'Votre avis à bien été ajouté');
+
+        return $this->redirectToRoute('event', array(
+            'id' => $event->getId(),
+        ));
+    }
+    return $this->render('event/addReview.html.twig', array( 'form' => $form->createView() ));
+}
 }

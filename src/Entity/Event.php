@@ -65,10 +65,16 @@ class Event
      */
     private $place;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="event", orphanRemoval=true)
+     */
+    private $reviews;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
         $this->options = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
 
@@ -191,6 +197,37 @@ class Event
     public function setPlace(?Place $place): self
     {
         $this->place = $place;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->contains($review)) {
+            $this->reviews->removeElement($review);
+            // set the owning side to null (unless already changed)
+            if ($review->getEvent() === $this) {
+                $review->setEvent(null);
+            }
+        }
 
         return $this;
     }
